@@ -18,19 +18,21 @@ window.onload = function () {
     } else {
 
         console.log("not auth");
+
         document.getElementById('login-btn').onclick = function (event) {
+            console.log("asdasdsad")
             event.preventDefault();
             console.log("go go go ", document.getElementById('username').value), " ", document.getElementById('password'.value);
             checkAuth(document.getElementById('username').value, document.getElementById('password').value).then(r => r);
 
-        }
+        };
 
     }
 
     document.getElementById('logout-btn').onclick = function (event) {
         event.preventDefault();
         sessionStorage.clear();
-        document.getElementById("login-btn").style.display = "block";
+        document.getElementById("login-btn").style.display = "inline-block";
         document.getElementById("user").style.display = "block";
         document.getElementById("pass").style.display = "block";
         document.getElementById("logout-btn").style.display = "none";
@@ -311,7 +313,7 @@ function renderPlaylist(song) {
             previous.classList = 'btn btn-secondary';
             //previous.textContent = 'Previous';
             previous.addEventListener('click', function (event) {
-                gatherSongList();
+                //gatherSongList();
                 counter--;
                 if (counter > leng - 1) {
                     counter = 0;
@@ -345,7 +347,7 @@ function renderPlaylist(song) {
             next.classList = 'btn btn-secondary';
             //next.textContent = 'Next';
             next.addEventListener('click', function (event) {
-                gatherSongList();
+                //gatherSongList();
                 counter++;
                 if (counter > leng - 1) {
                     counter = 0;
@@ -382,7 +384,7 @@ function renderPlaylist(song) {
             repeat.classList = 'btn btn-secondary';
             //repeat.textContent = 'Repeat';
             repeat.addEventListener('click', function (event) {
-                gatherSongList();
+                //gatherSongList();
                 if (songLoop) {
                     songLoop = false;
                 } else {
