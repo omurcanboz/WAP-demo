@@ -10,6 +10,13 @@
     <link href="./resources/bootstrap.min.css" rel="stylesheet">
     <link href="./resources/carousel.css" rel="stylesheet">
     <script src="./resources/main.js"></script>
+    <script src="https://kit.fontawesome.com/3a445ceca3.js" crossorigin="anonymous"></script>
+
+    <style>
+        .container>a {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,11 +35,13 @@
                     <div class="col-md-8" id="search-bar">
                         <form>
                             <div class="row">
-                                <div class="col">
+                                <div class="col-7">
                                     <input type="text" class="form-control" id="search" placeholder="Search by title">
                                 </div>
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary mb-2" id="search-btn">Search</button>
+                                    <button type="submit" class="btn btn-primary mb-2" id="search-btn">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
                                 </div>
                             </div>
                         </form>

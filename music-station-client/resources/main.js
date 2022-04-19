@@ -67,9 +67,11 @@ window.onload = function () {
 
 }
 
+var shff = false;
 var songLoop = false;
 var counter = 0;
 var songList = [];
+var shuffleList = [];
 
 function gatherSongList() {
     songList.length = 0;
@@ -77,6 +79,8 @@ function gatherSongList() {
     for (var i = 0; i < searchEles.length; i++) {
         songList.push(searchEles[i].innerHTML);
     }
+    shuffleList = shuffle(songList);
+    console.log(shuffleList);
 }
 
 async function searchByTitle(word) {
@@ -223,22 +227,27 @@ function renderPlaylist(song) {
     const divCol5 = document.createElement('div');
     divCol5.classList = 'col';
 
-    const addButton = document.createElement('a');
-    addButton.classList = 'btn btn-secondary';
-    addButton.textContent = 'Remove';
-    addButton.onclick = function () {
+    const removeButton = document.createElement('a');
+    const removeIcon = document.createElement('i');
+    removeIcon.classList = 'fa-solid fa-minus';
+    removeButton.classList = 'btn btn-secondary';
+    //removeButton.textContent = 'Remove';
+    removeButton.onclick = function () {
         document.getElementById('playlist').innerHTML = "";
         removeSong(song).then(r => r);
     };
 
-    divCol5.appendChild(addButton);
+    removeButton.appendChild(removeIcon);
+    divCol5.appendChild(removeButton);
 
     const divCol6 = document.createElement('div');
     divCol6.classList = 'col';
 
     const playButton = document.createElement('a');
+    const playIcon = document.createElement('i');
+    playIcon.classList = 'fa-solid fa-play';
     playButton.classList = 'btn btn-secondary';
-    playButton.textContent = 'Play';
+    //playButton.textContent = 'Play';
     playButton.onclick = function () {
 
 
@@ -246,6 +255,8 @@ function renderPlaylist(song) {
         for (var i = 0; i < searchEles.length; i++) {
             songList.push(searchEles[i].innerHTML);
         }
+        shuffleList = shuffle(songList);
+        console.log(shuffleList);
 
         const aud = document.getElementById("player");
         if (!aud) {
@@ -268,9 +279,13 @@ function renderPlaylist(song) {
                 if (!songLoop) {
                     counter++;
                 }
-                console.log(counter);
-                let index = songList[counter];
-                console.log(index);
+                let index = '';
+                if(shff) {
+                    console.log(shuffleList);
+                    index = shuffleList[counter];
+                } else {
+                    index = songList[counter];
+                }
                 if (index) {
                     sound.src = index;
                     sound.play();
@@ -283,8 +298,11 @@ function renderPlaylist(song) {
             });
 
             var previous = document.createElement('a');
+            const previousIcon = document.createElement('i');
+            previousIcon.classList = 'fa-solid fa-angle-left';
+            previous.appendChild(previousIcon);
             previous.classList = 'btn btn-secondary';
-            previous.textContent = 'Previous';
+            //previous.textContent = 'Previous';
             previous.addEventListener('click', function (event) {
                 gatherSongList();
                 counter--;
@@ -293,7 +311,15 @@ function renderPlaylist(song) {
                 } else if (counter < 0) {
                     counter = leng - 1;
                 }
-                let index = songList[counter];
+
+                let index = '';
+                if(shff == true) {
+                    console.log(shuffleList);
+                    index = shuffleList[counter];
+                } else {
+                    index = songList[counter];
+                }
+
                 if (index) {
                     sound.src = index;
                     sound.play();
@@ -307,8 +333,10 @@ function renderPlaylist(song) {
 
 
             var next = document.createElement('a');
+            const nextIcon = document.createElement('i');
+            nextIcon.classList = 'fa-solid fa-angle-right';
             next.classList = 'btn btn-secondary';
-            next.textContent = 'Next';
+            //next.textContent = 'Next';
             next.addEventListener('click', function (event) {
                 gatherSongList();
                 counter++;
@@ -317,7 +345,15 @@ function renderPlaylist(song) {
                 } else if (counter < 0) {
                     counter = 0;
                 }
-                let index = songList[counter];
+
+                let index = '';
+                if(shff == true) {
+                    console.log(shuffleList);
+                    index = shuffleList[counter];
+                } else {
+                    index = songList[counter];
+                }
+
                 if (index) {
                     sound.src = index;
                     sound.play();
@@ -327,11 +363,15 @@ function renderPlaylist(song) {
                     sound.play();
                 }
             });
+            next.appendChild(nextIcon);
             audioContainer.appendChild(next);
 
             var repeat = document.createElement('a');
+            const repeatIcon = document.createElement('i');
+            repeatIcon.classList = 'fa-solid fa-repeat';
+            repeat.appendChild(repeatIcon);
             repeat.classList = 'btn btn-secondary';
-            repeat.textContent = 'Repeat';
+            //repeat.textContent = 'Repeat';
             repeat.addEventListener('click', function (event) {
                 gatherSongList();
                 if (songLoop) {
@@ -341,6 +381,24 @@ function renderPlaylist(song) {
                 }
             });
             audioContainer.appendChild(repeat);
+
+
+
+            var shuff = document.createElement('a');
+            const shuffleIcon = document.createElement('i');
+            shuffleIcon.classList = 'fa-solid fa-shuffle';
+            shuff.appendChild(shuffleIcon);
+            shuff.classList = 'btn btn-secondary';
+            //shuff.textContent = 'Shuffle';
+            shuff.addEventListener('click', function (event) {
+                gatherSongList();
+                if(shff) {
+                    shff = false;
+                } else {
+                    shff = true;
+                }
+            });
+            audioContainer.appendChild(shuff);
 
         } else {
             var sound = document.getElementById("player");
@@ -352,6 +410,7 @@ function renderPlaylist(song) {
 
 
 
+    playButton.appendChild(playIcon);
     divCol6.appendChild(playButton);
 
     const divCol7 = document.createElement('div');
@@ -414,13 +473,16 @@ function renderSong(song) {
     divCol5.classList = 'col';
 
     const addButton = document.createElement('a');
+    const addIcon = document.createElement('i');
+    addIcon.classList = 'fa-solid fa-plus'
     addButton.classList = 'btn btn-secondary';
-    addButton.textContent = 'Add to playlist';
+    //addButton.textContent = 'Add to playlist';
     addButton.onclick = function () {
         document.getElementById('playlist').innerHTML = "";
         addSong(song);
     }
 
+    addButton.appendChild(addIcon);
     divCol5.appendChild(addButton);
 
     divRow.appendChild(divCol);
@@ -431,4 +493,23 @@ function renderSong(song) {
 
     container.appendChild(divRow);
 
+}
+
+
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
 }
