@@ -12,24 +12,8 @@ window.onload = function () {
         document.getElementById("playlist").style.display = "block";
         document.getElementById("audio").style.display = "block";
         document.getElementById('error').style.display = 'none';
-        getSongs();
-        getPlaylist();
-
-        document.getElementById('search-btn').onclick = function (event) {
-            event.preventDefault();
-            let key = document.getElementById('search').value;
-            if (key) {
-                console.log("adsasda", document.getElementById('search').value);
-                if (document.getElementById('search').value) {
-                    document.getElementById("songs").innerHTML = "";
-                    searchByTitle(document.getElementById('search').value);
-                }
-            } else {
-                document.getElementById("songs").innerHTML = "";
-                getSongs();
-            }
-
-        }
+        getSongs().then(r => r);
+        getPlaylist().then(r => r);
 
     } else {
 
@@ -37,7 +21,7 @@ window.onload = function () {
         document.getElementById('login-btn').onclick = function (event) {
             event.preventDefault();
             console.log("go go go ", document.getElementById('username').value), " ", document.getElementById('password'.value);
-            checkAuth(document.getElementById('username').value, document.getElementById('password').value);
+            checkAuth(document.getElementById('username').value, document.getElementById('password').value).then(r => r);
 
         }
 
@@ -61,6 +45,22 @@ window.onload = function () {
     
         document.getElementById("audio").style.display = "none";
     }
+
+
+    document.getElementById('search-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        let key = document.getElementById('search').value;
+        if (key) {
+            console.log("adsasda", document.getElementById('search').value);
+            document.getElementById("songs").innerHTML = "";
+            searchByTitle(key).then(r => r);
+
+        } else {
+            document.getElementById("songs").innerHTML = "";
+            getSongs().then(r => r);
+        }
+
+    });
 
 
 
@@ -108,8 +108,8 @@ async function checkAuth(username, password) {
             document.getElementById("playlist").style.display = "block";
             document.getElementById('error').style.display = 'none';
 
-            getSongs();
-            getPlaylist();
+            await getSongs();
+            await getPlaylist();
         } else {
             document.getElementById('error').style.display = 'block';
             console.log("user not found", auth);
@@ -228,7 +228,7 @@ function renderPlaylist(song) {
     addButton.textContent = 'Remove';
     addButton.onclick = function () {
         document.getElementById('playlist').innerHTML = "";
-        removeSong(song);
+        removeSong(song).then(r => r);
     };
 
     divCol5.appendChild(addButton);
@@ -261,7 +261,7 @@ function renderPlaylist(song) {
             //sound.loop = 'true';
             const audioContainer = document.getElementById("audio");
             audioContainer.appendChild(sound);
-            sound.play();
+            sound.play().then(r => r);
 
             sound.addEventListener("ended", function () {
                 sound.currentTime = 0;
