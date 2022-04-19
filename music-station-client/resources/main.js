@@ -67,7 +67,7 @@ window.onload = function () {
 
 }
 
-var shff = false;
+var shff = 0;
 var songLoop = false;
 var counter = 0;
 var songList = [];
@@ -280,7 +280,7 @@ function renderPlaylist(song) {
                     counter++;
                 }
                 let index = '';
-                if(shff) {
+                if(shff == 1) {
                     console.log(shuffleList);
                     index = shuffleList[counter];
                 } else {
@@ -313,7 +313,7 @@ function renderPlaylist(song) {
                 }
 
                 let index = '';
-                if(shff == true) {
+                if(shff == 1) {
                     console.log(shuffleList);
                     index = shuffleList[counter];
                 } else {
@@ -347,10 +347,12 @@ function renderPlaylist(song) {
                 }
 
                 let index = '';
-                if(shff == true) {
-                    console.log(shuffleList);
+                if(shff == 1) {
+                    console.log("shuffle" , shuffleList);
                     index = shuffleList[counter];
                 } else {
+                    console.log(counter);
+                    console.log(songList);
                     index = songList[counter];
                 }
 
@@ -392,10 +394,10 @@ function renderPlaylist(song) {
             //shuff.textContent = 'Shuffle';
             shuff.addEventListener('click', function (event) {
                 gatherSongList();
-                if(shff) {
-                    shff = false;
+                if(shff == 1) {
+                    shff = 0;
                 } else {
-                    shff = true;
+                    shff = 1;
                 }
             });
             audioContainer.appendChild(shuff);
