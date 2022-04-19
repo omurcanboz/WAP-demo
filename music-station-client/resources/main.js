@@ -79,6 +79,9 @@ function gatherSongList() {
     for (var i = 0; i < searchEles.length; i++) {
         songList.push(searchEles[i].innerHTML);
     }
+    songList.sort(function(a, b) {
+        return a - b ;
+    });
     shuffleList = shuffle(songList);
     console.log(shuffleList);
 }
@@ -271,6 +274,10 @@ function renderPlaylist(song) {
             sound.controls = 'controls';
             //sound.loop = 'true';
             const audioContainer = document.getElementById("audio");
+            const sTitle = document.createElement('p');
+            sTitle.id = 'sTitle';
+            sTitle.textContent = song.title;
+            audioContainer.appendChild(sTitle);
             audioContainer.appendChild(sound);
             sound.play().then(r => r);
 
@@ -403,8 +410,11 @@ function renderPlaylist(song) {
             audioContainer.appendChild(shuff);
 
         } else {
+
+            let tt = document.getElementById('sTitle');
             var sound = document.getElementById("player");
             sound.src = song.path;
+            tt.textContent = song.title;
             sound.play();
         }
 
