@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Box</title>
+
+    <link href="./resources/bootstrap.min.css" rel="stylesheet">
+    <link href="./resources/carousel.css" rel="stylesheet">
+    <script src="./resources/main.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"><a class="navbar-brand" href="#">Music Box</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="col-md-8" id="search-bar">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control" id="search" placeholder="Search by title">
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mb-2" id="search-btn">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </nav>
+
+
+    </header>
+    <main>
+
+
+
+
+        <div class="container marketing">
+            <div id="products" class="row">
+            </div>
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-12" id="login-cnt">
+                    <p class="lead" >
+                    <form id="product-form">
+                        <div class="mb-3" id="user">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username">
+
+                        </div>
+                        <div class="mb-3" id="pass">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
+                        <button type="submit" class="btn btn-primary" id="logout-btn"
+                            style="display: none;">Logout</button>
+                    </form>
+                    </p>
+                    <p id="error" style="font-size: 30px; font-weight: bold; color: red; padding: 3px;text-align: center;display: none;">User not found!</p>
+                </div>
+            </div>
+        </div>
+<br>
+        <div class="container" id="songs">
+        </div>
+<br>
+        <div class="container" id="playlist">
+        </div>
+<br>
+        <div class="container" id="audio">
+        </div>
+
+
+    </main>
+
+</body>
+
+</html>
